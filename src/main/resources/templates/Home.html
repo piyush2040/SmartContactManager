@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace = "base::layout(~{::section})">
 <head>
 <meta charset="UTF-8">
 <title>This is home page</title>
 </head>
 <body>
 <h1>This is home page.</h1>
+<section class="banner d-flex justify-content-center align-items-center">
+	<div>
+		<h1 class="font-weigth-bold">Smart Contact Manager</h1>
+		<p>
+			Start Collecting your Contacts in very smarter way.
+			We provide efficient way of managing contacts.
+		</p>
+		<button class="btn bg-primary btn-lg text-white">Get Started</button>
+	</div>
+	</section>
 </body>
 </html>

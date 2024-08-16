@@ -1,6 +1,7 @@
 package com.Smart.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,18 +25,9 @@ import jakarta.validation.Valid;
 public class HomeController {
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
-	@GetMapping("/test")
-	@ResponseBody
-	public String test()
-	{
-		User user = new User();
-		user.setName("Piyush");
-		user.setEmail("piyush@gmail.com");
-		userRepository.save(user);
-				
-		return "working";
-	}
 	@RequestMapping("/")
 	public String home(Model model)
 	{
@@ -81,6 +73,7 @@ public class HomeController {
 			}
 			user.setRole("ROLE_USER");
 			user.setEnabled(true);
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			User Result = userRepository.save(user);
 //			System.out.println("Agreement" + agreement);
 //			System.out.println("user" + user);

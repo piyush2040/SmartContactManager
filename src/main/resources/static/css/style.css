@@ -18,3 +18,91 @@ body{
 	padding:20px;
 	background:#FFFFFF;
 }
+.navbar-laravel
+{
+    box-shadow: 0 2px 4px rgba(0,0,0,.04);
+}
+
+.navbar-brand , .nav-link, .my-form, .login-form
+{
+    font-family: Raleway, sans-serif;
+}
+
+.my-form
+{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.my-form .row
+{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.login-form
+{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+   
+}
+
+.login-form .row
+{
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+@media only screen and (max-width: 600px){
+	
+	.sidebar{
+	display: none;
+	width: 80% !important;
+	background: white;
+	height: 100vh;
+	position: fixed;
+	padding-top: 45px;
+}
+
+.content{
+	margin-left: 0% !important;
+}
+
+
+	}
+
+.sidebar{
+	width: 18%;
+	background: white;
+	height: 100%;
+	position: fixed;
+	padding-top: 45px;
+}
+
+.sidebar a{
+	display:block;
+	width:100%;
+	padding: 10px 25px;
+	color: gray;
+}
+
+.sidebar a:hover{
+	background: #e2e2e2;
+}
+.sidebar .divider{
+	height: .5px;
+	width: 100%;
+	background: #e2e2e2;
+	margin-top: 10px;
+}
+.content{
+	margin-left: 20%;
+}
+
+.sidebar .crossBtn{
+	position: absolute;
+	top: 0;
+	right: 35px;
+	font-size: 36px;
+	cursor: pointer;
+}

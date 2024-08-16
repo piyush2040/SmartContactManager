@@ -88,4 +88,13 @@ public class HomeController {
 		}
 		return "signUp";
 	}
+
+	//handler for custom login
+	@RequestMapping("/signin")
+	public String customLogin(Model model)
+	{
+		model.addAttribute("title", "SignIn");
+		return "login";
+	}
+
 }

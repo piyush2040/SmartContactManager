@@ -13,7 +13,8 @@
   </head>
   <body>
 <!--   navbar start-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <nav class="fixed-top navbar navbar-expand-lg navbar-dark bg-primary">
+  <i onclick = "toggleSidebar()" class = "fas fa-bars m-3" id = "SideBarBars"></i>
   <a class="navbar-brand" href="#">Smart Contact Manager</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -42,21 +43,20 @@
 <!--navbar end -->	
 <!--sidebar -->
 
-<div class = "sidebar">
+<div class = "sidebar mt-2">
 	<span onclick = "toggleSidebar()" class="crossBtn">&times;</span>
 	<a href = "#" class = "item">Home</a>
 	<a href = "#" class = "item">View Contacts</a>
-	<a href = "#" class = "item">Add Contacts</a>
+	<a href = "#" th:href = "@{/User/add-contact}" class = "item">Add Contacts</a>
 	<a href = "#" class = "item">Your Profile</a>
 	<a href = "#" class = "item">Settings</a>
-	<a href = "#" class = "item">Logout</a>
+	<a href = "#" th:href = "@{/logout}" class = "item">Logout</a>
 	<div class = "divider"></div>
 </div>
 
 
 <!--sidebar end-->
-<div class = "content">
-<i onclick = "toggleSidebar()" class = "fas fa-bars m-3" id = "SideBarBars"></i>
+<div class = "content mt-5">
 <div th:replace= "${content}"></div>
 </div>
 	    <!-- Optional JavaScript -->

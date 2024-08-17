@@ -59,7 +59,7 @@ public class MyConfig {
 	        )
 	        .authenticationProvider(this.authenticationProvider())
 	        .formLogin(form -> form.loginPage("/signin") // Customize the login page URL
-	        	    .defaultSuccessUrl("/", true) // Redirect to '/' if no previous request
+	        	    .defaultSuccessUrl("/", false) // Redirect to '/' if no previous request
 	        	    .failureUrl("/login?error") // Customize the failure URL
 	        	    .permitAll() // Allow everyone to access the login page // Configuring form login
 	        	    );

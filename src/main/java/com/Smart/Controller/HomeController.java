@@ -28,6 +28,8 @@ public class HomeController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
+	
+	
 	@RequestMapping("/")
 	public String home(Model model)
 	{
@@ -96,5 +98,7 @@ public class HomeController {
 		model.addAttribute("title", "SignIn");
 		return "login";
 	}
+	
+	
 
 }

@@ -11,6 +11,12 @@
 	<div class = "card mr-3">
 		<div class = "card-body">
 		<h1 class = "text-center">Add Contact</h1>
+		<div th:if = "${session.message}"  class = "container">
+		<div th:classappend="${'alert-'+session.message.type}" class="alert text-center" role="alert">
+  			<span th:text="${session.message.content}"></span>
+		</div>
+<!-- 		<th:block th:text = "${#session.removeAttribute('message')}"></th:block> -->
+		</div>
 			<div class = "container-fluid mt-1">
 				<div class = "row">
 					<div class = "col-md-10 offset-md-1">

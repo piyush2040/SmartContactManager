@@ -17,6 +17,8 @@ import com.Smart.Service.UserService;
 import com.Smart.entities.Contact;
 import com.Smart.entities.User;
 
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("/User")
@@ -49,11 +51,11 @@ public class UserController {
 	
 	//processing add contact form
 	@PostMapping("/process-contact")
-	public RedirectView processContact(@ModelAttribute Contact contact, Principal principal, @RequestParam("profileImage") MultipartFile file)
+	public RedirectView processContact(@ModelAttribute Contact contact, Principal principal, @RequestParam("profileImage") MultipartFile file, HttpSession session)
 	{
 		System.out.println(contact);
-		User user =   userService.addContactToUser(contact,file);
+		User user =   userService.addContactToUser(contact,file,principal, session);
 		System.out.println(user);
-		return new RedirectView("/add_contact");
+		return new RedirectView("/add-contact");
 	}
 }

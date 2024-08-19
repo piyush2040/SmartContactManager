@@ -9,15 +9,13 @@ import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.Smart.ControllerLogicInterface.UserServiceInterface;
+import com.Smart.Helper.Message;
 import com.Smart.dao.UserRepository;
 import com.Smart.entities.Contact;
 import com.Smart.entities.User;
@@ -49,9 +47,11 @@ public class UserService implements UserServiceInterface {
     }
 
 	@Override
-	public User addContactToUser(Contact contact, MultipartFile file, @AuthenticationPrincipal Principal principal, @SessionAttribute HttpSession session) {
+	public User addContactToUser(Contact contact, MultipartFile file, Principal principal, HttpSession session) {
 		
 		String name = principal.getName();
+		User user = null;
+		try {
 		//processing and uploading file.
 		if(file.isEmpty())
 		{
@@ -59,26 +59,30 @@ public class UserService implements UserServiceInterface {
 		}
 		else {
 			contact.setImage(file.getOriginalFilename());
-			try {
+			
 				File staticFile = new ClassPathResource("static/img").getFile();
 				Path path =   Paths.get(staticFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
 				
 				
 				Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
 				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 			
 			
 		}
 		
-		User user = userRepository.getUserByUserName(name);
+		user = userRepository.getUserByUserName(name);
 		contact.setUser(user);
 		
 		user.getContacts().add(contact);
 		user = userRepository.save(user);
+		session.setAttribute("message", new Message("Your Contact is added!! Add more.." , "success"));
+		}
+	catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		session.setAttribute("message", new Message("Something went Wrong!! Try again.." , "danger"));
+	}
 		return user;
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.Smart.Service.UserService;
 import com.Smart.entities.Contact;
@@ -48,11 +49,11 @@ public class UserController {
 	
 	//processing add contact form
 	@PostMapping("/process-contact")
-	public String processContact(@ModelAttribute Contact contact, Principal principal, @RequestParam("profileImage") MultipartFile file)
+	public RedirectView processContact(@ModelAttribute Contact contact, Principal principal, @RequestParam("profileImage") MultipartFile file)
 	{
 		System.out.println(contact);
-		User user =   userService.addContactToUser(contact,file,principal);
+		User user =   userService.addContactToUser(contact,file);
 		System.out.println(user);
-		return "User/add_contact_form";
+		return new RedirectView("/add_contact");
 	}
 }

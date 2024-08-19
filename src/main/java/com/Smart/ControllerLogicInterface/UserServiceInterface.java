@@ -9,9 +9,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.Smart.entities.Contact;
 import com.Smart.entities.User;
 
+import jakarta.servlet.http.HttpSession;
+
 public interface UserServiceInterface {
 
 	public void addCommonData(Model model, Principal principal);
 	
-	public User addContactToUser(Contact contact, MultipartFile file, Principal principal);
+	public User addContactToUser(Contact contact, MultipartFile file);
 }

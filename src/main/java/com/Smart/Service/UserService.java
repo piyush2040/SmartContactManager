@@ -9,16 +9,20 @@ import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.Smart.ControllerLogicInterface.UserServiceInterface;
 import com.Smart.dao.UserRepository;
 import com.Smart.entities.Contact;
 import com.Smart.entities.User;
+
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class UserService implements UserServiceInterface {
@@ -45,7 +49,7 @@ public class UserService implements UserServiceInterface {
     }
 
 	@Override
-	public User addContactToUser(Contact contact, MultipartFile file, Principal principal) {
+	public User addContactToUser(Contact contact, MultipartFile file, @AuthenticationPrincipal Principal principal, @SessionAttribute HttpSession session) {
 		
 		String name = principal.getName();
 		//processing and uploading file.

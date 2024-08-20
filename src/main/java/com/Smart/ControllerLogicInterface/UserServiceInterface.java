@@ -15,4 +15,6 @@ public interface UserServiceInterface {
 	public void addCommonData(Model model, Principal principal);
 	
 	public User addContactToUser(Contact contact, MultipartFile file, Principal principal, HttpSession session);
+	
+	public void removeMessageFromSession();
 }

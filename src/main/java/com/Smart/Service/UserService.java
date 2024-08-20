@@ -12,6 +12,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.Smart.ControllerLogicInterface.UserServiceInterface;
@@ -20,6 +22,8 @@ import com.Smart.dao.UserRepository;
 import com.Smart.entities.Contact;
 import com.Smart.entities.User;
 
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Service
@@ -84,5 +88,12 @@ public class UserService implements UserServiceInterface {
 		session.setAttribute("message", new Message("Something went Wrong!! Try again.." , "danger"));
 	}
 		return user;
+	}
+
+	@Override
+	public void removeMessageFromSession() {
+		HttpSession session = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getSession();
+		session.removeAttribute("message");
+		
 	}
 }

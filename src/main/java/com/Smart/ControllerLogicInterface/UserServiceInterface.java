@@ -16,5 +16,5 @@ public interface UserServiceInterface {
 	
 	public User addContactToUser(Contact contact, MultipartFile file, Principal principal, HttpSession session);
 	
-	public void removeMessageFromSession();
+	
 }

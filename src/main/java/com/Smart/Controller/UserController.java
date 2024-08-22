@@ -51,11 +51,11 @@ public class UserController {
 	
 	//processing add contact form
 	@PostMapping("/process-contact")
-	public RedirectView processContact(@ModelAttribute Contact contact, Principal principal, @RequestParam("profileImage") MultipartFile file, HttpSession session)
+	public RedirectView processContact(@ModelAttribute Contact contact, Principal principal, @RequestParam(value = "profileImage", required = false) MultipartFile file, HttpSession session)
 	{
 		System.out.println(contact);
 		User user =   userService.addContactToUser(contact,file,principal, session);
 		System.out.println(user);
-		return new RedirectView("/add-contact");
+		return new RedirectView("/User/add-contact");
 	}
 }

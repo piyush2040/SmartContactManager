@@ -77,9 +77,10 @@ public class UserService implements UserServiceInterface {
 		user = userRepository.save(user);
 		session.setAttribute("message", new Message("Your Contact is added!! Add more.." , "success"));
 		}
-	catch (IOException e) {
+	catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
+		System.out.println("Getting error");
 		session.setAttribute("message", new Message("Something went Wrong!! Try again.." , "danger"));
 	}
 		return user;

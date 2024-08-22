@@ -1,6 +1,7 @@
 package com.Smart.Controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,4 +59,16 @@ public class UserController {
 		System.out.println(user);
 		return new RedirectView("/User/add-contact");
 	}
+	
+	@GetMapping("/show-contact")
+	public String GetContacts(Model model,Principal principal)
+	{
+		model.addAttribute("title","Show Contact");
+		List<Contact> contacts = userService.GetContactsByUserId(principal);
+		model.addAttribute("contacts",contacts);
+		//System.out.println(contacts);
+		return "User/show-contacts";
+	}
+	
+	
 }

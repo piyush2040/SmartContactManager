@@ -7,6 +7,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.Smart.ControllerLogicInterface.UserServiceInterface;
 import com.Smart.Helper.Message;
+import com.Smart.dao.ContactRepository;
 import com.Smart.dao.UserRepository;
 import com.Smart.entities.Contact;
 import com.Smart.entities.User;
@@ -26,6 +29,9 @@ public class UserService implements UserServiceInterface {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private ContactRepository contactRepository;
     
     @Override
     @ModelAttribute
@@ -84,6 +90,17 @@ public class UserService implements UserServiceInterface {
 		session.setAttribute("message", new Message("Something went Wrong!! Try again.." , "danger"));
 	}
 		return user;
+	}
+
+	@Override
+	public List<Contact> GetContactsByUserId(Principal principal) {
+		
+		String userName = principal.getName();
+		User user = this.userRepository.getUserByUserName(userName);
+		List<Contact> contacts = this.contactRepository.findContactByUser(user.getId());
+		//System.out.println(user);
+		//System.out.println(contacts);
+		return contacts;
 	}
 
 	}

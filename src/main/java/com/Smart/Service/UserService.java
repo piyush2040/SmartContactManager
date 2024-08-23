@@ -11,6 +11,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -92,12 +95,20 @@ public class UserService implements UserServiceInterface {
 		return user;
 	}
 
+	
+	public Page<Contact> GetContactsByUserId(Principal principal) {
+	    return GetContactsByUserId(principal, 0); // Default to page 0
+	}
+	
 	@Override
-	public List<Contact> GetContactsByUserId(Principal principal) {
+	public Page<Contact> GetContactsByUserId(Principal principal,Integer page) {
 		
 		String userName = principal.getName();
 		User user = this.userRepository.getUserByUserName(userName);
-		List<Contact> contacts = this.contactRepository.findContactByUser(user.getId());
+		Pageable pageable =  PageRequest.of(page, 5);
+		
+		Page<Contact> contacts = this.contactRepository.findContactByUser(user.getId(),pageable);
+		System.out.println(contacts);
 		//System.out.println(user);
 		//System.out.println(contacts);
 		return contacts;

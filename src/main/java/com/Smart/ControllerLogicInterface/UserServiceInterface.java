@@ -3,6 +3,7 @@ package com.Smart.ControllerLogicInterface;
 import java.security.Principal;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,5 +18,5 @@ public interface UserServiceInterface {
 	
 	public User addContactToUser(Contact contact, MultipartFile file, Principal principal, HttpSession session);
 	
-	public List<Contact> GetContactsByUserId(Principal principal);
+	public Page<Contact> GetContactsByUserId(Principal principal,Integer page);
 }

@@ -4,10 +4,12 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,11 +62,17 @@ public class UserController {
 		return new RedirectView("/User/add-contact");
 	}
 	
+	
 	@GetMapping("/show-contact")
-	public String GetContacts(Model model,Principal principal)
+	public String GetContacts(Model model, Principal principal) {
+	    return GetContacts(1, model, principal); // Calls the method with page = 1
+	}
+	
+	@GetMapping("/show-contact/{page}")
+	public String GetContacts(@PathVariable("page") Integer page,  Model model,Principal principal)
 	{
 		model.addAttribute("title","Show Contact");
-		List<Contact> contacts = userService.GetContactsByUserId(principal);
+		List<Contact> contacts = userService.GetContactsByUserId(principal,page).getContent();
 		model.addAttribute("contacts",contacts);
 		//System.out.println(contacts);
 		return "User/show-contacts";

@@ -72,9 +72,11 @@ public class UserController {
 	public String GetContacts(@PathVariable("page") Integer page,  Model model,Principal principal)
 	{
 		model.addAttribute("title","Show Contact");
-		List<Contact> contacts = userService.GetContactsByUserId(principal,page).getContent();
+		Page<Contact> contacts = userService.GetContactsByUserId(principal,page);
 		model.addAttribute("contacts",contacts);
-		//System.out.println(contacts);
+		model.addAttribute("currentPage",page);
+		model.addAttribute("totalPages",contacts.getTotalPages());
+		System.out.println(contacts.getContent());
 		return "User/show-contacts";
 	}
 	

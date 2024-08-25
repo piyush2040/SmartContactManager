@@ -108,7 +108,7 @@ public class UserService implements UserServiceInterface {
 		Pageable pageable =  PageRequest.of(page, 5);
 		
 		Page<Contact> contacts = this.contactRepository.findContactByUser(user.getId(),pageable);
-		System.out.println(contacts);
+		System.out.println(pageable);
 		//System.out.println(user);
 		//System.out.println(contacts);
 		return contacts;

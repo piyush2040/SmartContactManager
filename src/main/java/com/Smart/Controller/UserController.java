@@ -75,6 +75,7 @@ public class UserController {
 		Page<Contact> contacts = userService.GetContactsByUserId(principal,page);
 		model.addAttribute("contacts",contacts);
 		model.addAttribute("currentPage",page);
+		System.out.println(contacts.getContent());
 		model.addAttribute("totalPages",contacts.getTotalPages());
 		System.out.println(contacts.getContent());
 		return "User/show-contacts";

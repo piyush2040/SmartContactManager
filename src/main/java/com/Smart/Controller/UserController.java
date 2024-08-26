@@ -65,7 +65,7 @@ public class UserController {
 	
 	@GetMapping("/show-contact")
 	public String GetContacts(Model model, Principal principal) {
-	    return GetContacts(1, model, principal); // Calls the method with page = 1
+	    return GetContacts(0, model, principal); // Calls the method with page = 1
 	}
 	
 	@GetMapping("/show-contact/{page}")

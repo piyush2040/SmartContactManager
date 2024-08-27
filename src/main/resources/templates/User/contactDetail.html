@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace = "User/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>This is Contact add page.</title>
+</head>
+<body>
+<h1>This is Contact page</h1>
+<section>
+	<div class="card mr-3 ml-3">
+	<div class="card-body">
+	<div class = "card-body">
+	
+	<div class = "container text-center">
+		<img src="" style="height: 200px; width: 200px;" class="my_profile_picture" th:src="@{'/img/'+ ${contactInfo.image}}"/>
+		
+		<h3><span th:text="${contactInfo.name}"></span> ( <span th:text="${contactInfo.secondName}"></span> )</h3>
+		
+		<div class="table-responsive">
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#ID</th>
+      <th scope="col">SCMUser<span th:text="${contactInfo.cId}"></span></th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    	<th scope="col">Email</th>
+      	<td><span th:text="${contactInfo.email}"></span></td>
+      
+    </tr>
+    <tr>
+    	<th scope="col">PhoneNo</th>
+      	<td><span th:text="${contactInfo.phone}"></span></td>
+      
+    </tr>
+    <tr>
+    	<th scope="col">Work</th>
+      	<td><span th:text="${contactInfo.work}"></span></td>
+      
+    </tr>
+    
+  </tbody>
+  
+  
+</table>
+<div class = "description">
+  	<th:block th:utext = "${contactInfo.description}"></th:block>
+  	
+  </div>
+  
+  <div class = "mt-3">
+  	<button class = "btn btn-danger btn-sm"> Delete</button>
+	      <button class = "btn btn-primary btn-sm"> Update</button>
+  </div>
+</div>
+	</div>	
+	</div>
+	</div>
+	
+	</div>
+
+</section>
+</body>
+</html>

@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -63,6 +64,7 @@ public class UserService implements UserServiceInterface {
 		//processing and uploading file.
 		if(file.isEmpty())
 		{
+			contact.setImage("contact.png");
 			System.out.println("Image is empty");
 		}
 		else {
@@ -114,4 +116,13 @@ public class UserService implements UserServiceInterface {
 		return contacts;
 	}
 
+	@Override
+	public Contact getDetialContactFromContactId(Integer cId) {
+		
+		Optional<Contact> contactOptional = this.contactRepository.findById(cId);
+		Contact contact = contactOptional.get();
+		
+		return contact;
+	}
+	
 	}

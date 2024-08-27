@@ -80,6 +80,14 @@ public class UserController {
 		System.out.println(contacts.getContent());
 		return "User/show-contacts";
 	}
-	
+	@RequestMapping("/contact/{cId}")
+	public String showContactDetail(@PathVariable("cId") Integer cId,Model model)
+	{
+		
+		Contact contact = userService.getDetialContactFromContactId(cId);
+		model.addAttribute("contactInfo",contact);
+		
+		return "User/contactDetail";
+	}
 	
 }

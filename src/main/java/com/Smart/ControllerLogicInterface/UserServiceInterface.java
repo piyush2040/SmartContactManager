@@ -21,4 +21,6 @@ public interface UserServiceInterface {
 	public Page<Contact> GetContactsByUserId(Principal principal,Integer page);
 	
 	public Contact getDetialContactFromContactId(Integer cId);
+	
+	public void deleteContact(Integer cId);
 }

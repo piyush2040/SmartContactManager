@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.Smart.Helper.Message;
 import com.Smart.Service.UserService;
 import com.Smart.entities.Contact;
 import com.Smart.entities.User;
@@ -88,6 +89,16 @@ public class UserController {
 		model.addAttribute("contactInfo",contact);
 		
 		return "User/contactDetail";
+	}
+	
+	@GetMapping("/delete/{cId}")
+	public String deleteContact(@PathVariable("cId") Integer cId,Model model)
+	{
+		
+		userService.deleteContact(cId);
+		model.addAttribute("message",new Message("Contact deleted successfully...", "success"));
+		
+		return "redirect:/User/show-contact";
 	}
 	
 }

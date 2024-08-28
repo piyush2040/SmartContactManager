@@ -124,5 +124,13 @@ public class UserService implements UserServiceInterface {
 		
 		return contact;
 	}
+
+	@Override
+	public void deleteContact(Integer cId) {
+		Optional<Contact> contactOptional = this.contactRepository.findById(cId);
+		Contact contact = contactOptional.get();
+		contact.setUser(null);
+		this.contactRepository.delete(contact);
+	}
 	
 	}

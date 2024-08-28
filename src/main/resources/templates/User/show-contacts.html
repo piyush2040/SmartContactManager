@@ -11,7 +11,12 @@
 	<div class = "card-body">
 	
 	<h1 class = "text-center">Your Contacts</h1>
-	
+	<div th:if = "${session.message}"  class = "container">
+		<div th:classappend="${'alert-'+session.message.type}" class="alert text-center" role="alert">
+  			<span th:text="${session.message.content}"></span>
+		</div>
+		<th:block th:text = "${@sessionManager.removeMessageFromSession()}"></th:block>
+		</div>
 	<table class="table">
 	  <thead>
 	    <tr>
@@ -35,7 +40,7 @@
 	      </td>
 	      <td th:text = "${c.phone}"></td>
 	      <td>
-	      <button class = "btn btn-danger btn-sm"> Delete</button>
+	      <a href = "#" th:onclick="|deleteContact(${c.cId})|" class = "btn btn-danger btn-sm"> Delete</a>
 	      <button class = "btn btn-primary btn-sm"> Update</button>
 	      </td>
 	    </tr>

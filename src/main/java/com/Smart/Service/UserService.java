@@ -132,5 +132,13 @@ public class UserService implements UserServiceInterface {
 		contact.setUser(null);
 		this.contactRepository.delete(contact);
 	}
+
+	@Override
+	public Contact updateContact(Contact contact) {
+		
+		
+		
+		return contact;
+	}
 	
 	}

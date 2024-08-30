@@ -18,6 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.Smart.Helper.Message;
 import com.Smart.Service.UserService;
+import com.Smart.dao.ContactRepository;
 import com.Smart.entities.Contact;
 import com.Smart.entities.User;
 
@@ -30,6 +31,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ContactRepository contactRepository;
 	
 	@ModelAttribute
     public void addCommonData(Model model, Principal principal) {
@@ -99,6 +103,14 @@ public class UserController {
 		model.addAttribute("message",new Message("Contact deleted successfully...", "success"));
 		
 		return "redirect:/User/show-contact";
+	}
+	
+	@RequestMapping("update-contact/{cId}")
+	public String updateContact(@PathVariable("cId") Integer cId, Model model)
+	{
+		Contact contact = this.contactRepository.findById(cId).get();
+		model.addAttribute("contact",contact);
+		return "User/update-contact";
 	}
 	
 }

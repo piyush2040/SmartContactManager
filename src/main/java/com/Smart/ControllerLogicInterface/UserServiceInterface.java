@@ -23,4 +23,6 @@ public interface UserServiceInterface {
 	public Contact getDetialContactFromContactId(Integer cId);
 	
 	public void deleteContact(Integer cId);
+	
+	public Contact updateContact(Contact contact);
 }

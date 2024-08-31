@@ -113,4 +113,14 @@ public class UserController {
 		return "User/update-contact";
 	}
 	
+	@PostMapping("/process-update-contact")
+	public RedirectView processUpdateContact(@ModelAttribute Contact contact,@RequestParam(value = "profileImage", required = false) MultipartFile file, HttpSession session,Model model)
+	{
+		System.out.println(contact);
+		Contact Updatedcontact =   userService.updateContact(contact,session);
+		System.out.println(contact);
+		model.addAttribute("contact",Updatedcontact);
+		return new RedirectView("/User/update-contact");
+	}
+	
 }

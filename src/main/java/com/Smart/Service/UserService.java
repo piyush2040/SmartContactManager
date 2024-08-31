@@ -134,9 +134,9 @@ public class UserService implements UserServiceInterface {
 	}
 
 	@Override
-	public Contact updateContact(Contact contact) {
+	public Contact updateContact(Contact contact,HttpSession session) {
 		
-		
+		Contact previousContact = this.contactRepository.getById(contact.getcId());
 		
 		return contact;
 	}

@@ -24,5 +24,5 @@ public interface UserServiceInterface {
 	
 	public void deleteContact(Integer cId);
 	
-	public Contact updateContact(Contact contact);
+	public Contact updateContact(Contact contact,HttpSession session);
 }

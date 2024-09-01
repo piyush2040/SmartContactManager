@@ -84,7 +84,9 @@
 						<div class = "form-group mt-3">
 							<textarea th:text = "${contact.description}" name = "description" id = "description" class = "form-control" placeholder = "Enter contact description" rows = "10"></textarea>
 						</div>
-						
+						<div class = "container">
+							<img class = "img-fluid" src = "" th:src = "@{'/img/' + ${contact.image}}"/>
+						</div>
 						<div class = "custom-file">
 						<input type = "file" name = "profileImage"/>
 						

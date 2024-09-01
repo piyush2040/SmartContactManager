@@ -105,7 +105,7 @@ public class UserController {
 		return "redirect:/User/show-contact";
 	}
 	
-	@RequestMapping("update-contact/{cId}")
+	@PostMapping("update-contact/{cId}")
 	public String updateContact(@PathVariable("cId") Integer cId, Model model)
 	{
 		Contact contact = this.contactRepository.findById(cId).get();

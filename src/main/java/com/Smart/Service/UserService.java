@@ -126,19 +126,48 @@ public class UserService implements UserServiceInterface {
 	}
 
 	@Override
-	public void deleteContact(Integer cId) {
+	public void deleteContact(Integer cId,Principal principal) {
 		Optional<Contact> contactOptional = this.contactRepository.findById(cId);
 		Contact contact = contactOptional.get();
+		User user = this.userRepository.getUserByUserName(principal.getName());
+		user.getContacts().remove(contact);
 		contact.setUser(null);
 		this.contactRepository.delete(contact);
 	}
 
 	@Override
-	public Contact updateContact(Contact contact,HttpSession session) {
+	public Contact updateContact(Contact contact,MultipartFile file, HttpSession session,Principal principal) {
 		
-		Contact previousContact = this.contactRepository.findById(contact.getcId()).get();
+		Contact previContact = this.contactRepository.findById(contact.getcId()).get();
 		
-		
+		try {
+		//processing and uploading file.
+		if(!file.isEmpty())
+		{
+			contact.setImage(file.getOriginalFilename());
+			
+			File staticFile = new ClassPathResource("static/img").getFile();
+			Path path =   Paths.get(staticFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
+			
+			
+			Files.copy(file.getInputStream(), path,StandardCopyOption.REPLACE_EXISTING);
+		}
+		else {
+			contact.setImage(previContact.getImage());
+			
+		}
+		//System.out.println(contact);
+		User user = this.userRepository.getUserByUserName(principal.getName());
+		contact.setUser(user);
+		this.contactRepository.save(contact);
+		session.setAttribute("message", new Message("Your Contact is updated!!" , "success"));
+		}
+	catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		System.out.println("Getting error");
+		session.setAttribute("message", new Message("Something went Wrong!! Try again.." , "danger"));
+	}
 		return contact;
 	}
 	

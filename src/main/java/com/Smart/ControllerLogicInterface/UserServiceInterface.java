@@ -22,7 +22,7 @@ public interface UserServiceInterface {
 	
 	public Contact getDetialContactFromContactId(Integer cId);
 	
-	public void deleteContact(Integer cId);
+	public void deleteContact(Integer cId,Principal principal);
 	
-	public Contact updateContact(Contact contact,HttpSession session);
+	public Contact updateContact(Contact contact,MultipartFile file, HttpSession session,Principal principal);
 }

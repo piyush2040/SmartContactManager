@@ -41,14 +41,14 @@ public class UserController {
     }
 	
 	
-	@RequestMapping("/DashBoard")
+	@GetMapping("/DashBoard")
 	public String DashBoard(Model model, Principal principal)
 	{
 		model.addAttribute("title","User - DashBoard");
 		return "User/DashBoard";
 	}
 	//add contact handler
-	@RequestMapping("/add-contact")
+	@GetMapping("/add-contact")
 	public String openAddContactForm(Model model)
 	{
 		model.addAttribute("title","Add Contact");
@@ -61,9 +61,9 @@ public class UserController {
 	@PostMapping("/process-contact")
 	public RedirectView processContact(@ModelAttribute Contact contact, Principal principal, @RequestParam(value = "profileImage", required = false) MultipartFile file, HttpSession session)
 	{
-		System.out.println(contact);
+		//System.out.println(contact);
 		User user =   userService.addContactToUser(contact,file,principal, session);
-		System.out.println(user);
+		//System.out.println(user);
 		return new RedirectView("/User/add-contact");
 	}
 	
@@ -80,12 +80,12 @@ public class UserController {
 		Page<Contact> contacts = userService.GetContactsByUserId(principal,page);
 		model.addAttribute("contacts",contacts);
 		model.addAttribute("currentPage",page);
-		System.out.println(contacts.getContent());
+		//System.out.println(contacts.getContent());
 		model.addAttribute("totalPages",contacts.getTotalPages());
-		System.out.println(contacts.getContent());
+		//System.out.println(contacts.getContent());
 		return "User/show-contacts";
 	}
-	@RequestMapping("/contact/{cId}")
+	@GetMapping("/contact/{cId}")
 	public String showContactDetail(@PathVariable("cId") Integer cId,Model model)
 	{
 		
@@ -96,16 +96,16 @@ public class UserController {
 	}
 	
 	@GetMapping("/delete/{cId}")
-	public String deleteContact(@PathVariable("cId") Integer cId,Model model)
+	public String deleteContact(@PathVariable("cId") Integer cId,Model model,Principal principal)
 	{
 		
-		userService.deleteContact(cId);
+		userService.deleteContact(cId,principal);
 		model.addAttribute("message",new Message("Contact deleted successfully...", "success"));
 		
 		return "redirect:/User/show-contact";
 	}
 	
-	@PostMapping("update-contact/{cId}")
+	@GetMapping("update-contact/{cId}")
 	public String updateContact(@PathVariable("cId") Integer cId, Model model)
 	{
 		Contact contact = this.contactRepository.findById(cId).get();
@@ -114,13 +114,13 @@ public class UserController {
 	}
 	
 	@PostMapping("/process-update-contact")
-	public RedirectView processUpdateContact(@ModelAttribute Contact contact,@RequestParam(value = "profileImage", required = false) MultipartFile file, HttpSession session,Model model)
+	public RedirectView processUpdateContact(@ModelAttribute Contact contact,@RequestParam(value = "profileImage", required = false) MultipartFile file, HttpSession session,Model model,Principal principal)
 	{
 		System.out.println(contact);
-		Contact Updatedcontact =   userService.updateContact(contact,session);
+		Contact Updatedcontact =   userService.updateContact(contact,file,session,principal);
 		System.out.println(contact);
 		model.addAttribute("contact",Updatedcontact);
-		return new RedirectView("/User/update-contact");
+		return new RedirectView("/User/update-contact/" + contact.getcId());
 	}
 	
 }
